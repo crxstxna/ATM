@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 public class AtmMachine {
     private AtmState idleState;
     private AtmState hasValidCardState;
+    private AtmState hasValidPinState;
 
     private AtmState atmState;
     private BigDecimal availableCash = BigDecimal.valueOf(10000);
@@ -39,10 +40,19 @@ public class AtmMachine {
         this.atmState.withdraw(amount);
     }
 
+    public BigDecimal getAvailableCash() {
+        return availableCash;
+    }
+    public void setAvailableCash(BigDecimal availableCash) {
+        this.availableCash = availableCash;
+    }
     public AtmState getIdleState() {
         return idleState;
     }
     public AtmState getHasValidCardState() {
         return hasValidCardState;
+    }
+    public AtmState getHasValidPinState() {
+        return hasValidPinState;
     }
 }

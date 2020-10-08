@@ -27,10 +27,10 @@ public class HasValidCardState implements AtmState {
     public void insertPin(int enteredPin) {
         int accountAssociatedPIN = 12345;
         if(enteredPin == accountAssociatedPIN) {
-            //TODO set to hasValidPinState
-            //this.atmMachine.setAtmState();
+            System.out.println("Valid PIN code entered.");
+            this.atmMachine.setAtmState(this.atmMachine.getHasValidPinState());
         } else {
-            System.out.println("Invalid PIN entered, the card is ejected.");
+            System.out.println("Invalid PIN code entered, the card is ejected.");
             this.atmMachine.setAtmState(this.atmMachine.getIdleState());
         }
 
