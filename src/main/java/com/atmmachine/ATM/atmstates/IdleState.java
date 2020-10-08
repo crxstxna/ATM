@@ -6,7 +6,7 @@ import com.atmmachine.ATM.AtmState;
 import java.math.BigDecimal;
 
 public class IdleState implements AtmState {
-    AtmMachine atmMachine;
+    private AtmMachine atmMachine;
 
     public IdleState(AtmMachine newAtmMachine) {
         this.atmMachine = newAtmMachine;
@@ -15,6 +15,7 @@ public class IdleState implements AtmState {
     @Override
     public void insertCard() {
         System.out.println("Entered card is valid!");
+        this.atmMachine.setAtmState(atmMachine.getHasValidCardState());
     }
 
     @Override
