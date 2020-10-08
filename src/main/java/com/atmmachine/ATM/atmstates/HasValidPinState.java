@@ -30,17 +30,16 @@ public class HasValidPinState implements AtmState {
 
     @Override
     public void withdraw(BigDecimal amount) {
-        if (this.atmMachine.getAvailableCash().subtract(amount).compareTo(BigDecimal.ZERO) >= 0) {
+        if (this.atmMachine.getAvailableCash().subtract(amount).compareTo(BigDecimal.ZERO) < 0) {
+            System.out.println("ATM does not have enough funds! Card is ejected.");
+            this.atmMachine.setAtmState(this.atmMachine.getIdleState());
+        } else {
             this.atmMachine.setAvailableCash(this.atmMachine.getAvailableCash().subtract(amount));
             System.out.println("Cash withdrawn.");
             this.atmMachine.setAtmState(this.atmMachine.getIdleState());
-        } else {
-            System.out.println("ATM does not have enough funds! Card is ejected.");
-            this.atmMachine.setAtmState(this.atmMachine.getIdleState());
             if (this.atmMachine.getAvailableCash().compareTo(BigDecimal.ZERO) == 0) {
-                System.out.println("ATM out of cash, card is ejected");
-                //todo set to out of cash state
-//                this.atmMachine.setAtmState();
+                System.out.println("ATM out of cash.");
+                this.atmMachine.setAtmState(this.atmMachine.getOutOfCashState());
             }
         }
     }
