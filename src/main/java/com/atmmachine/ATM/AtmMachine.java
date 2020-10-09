@@ -5,6 +5,7 @@ import com.atmmachine.ATM.atmstates.HasValidPinState;
 import com.atmmachine.ATM.atmstates.IdleState;
 import com.atmmachine.ATM.atmstates.OutOfCashState;
 import com.atmmachine.ATM.unitTestExceptions.InvalidPinDigitNumberException;
+import com.atmmachine.ATM.unitTestExceptions.NegativeAmountToWithdraw;
 
 import java.math.BigDecimal;
 
@@ -42,7 +43,7 @@ public class AtmMachine {
         this.atmState.insertPin(enteredPin);
     }
 
-    public void withdraw(BigDecimal amount) {
+    public void withdraw(BigDecimal amount) throws NegativeAmountToWithdraw {
         this.atmState.withdraw(amount, this::subtractFromAvailableCash);
     }
 

@@ -2,12 +2,16 @@ package com.atmmachine.ATM.atmstates;
 
 import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.AtmState;
+import com.atmmachine.ATM.unitTestExceptions.NegativeAmountToWithdraw;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.function.Consumer;
 
 public class HasValidPinState implements AtmState {
     private AtmMachine atmMachine;
+    Logger logger = LogManager.getLogger(HasValidCardState.class.getName());
 
     public HasValidPinState(AtmMachine newAtmMachine) {
         this.atmMachine = newAtmMachine;
@@ -30,8 +34,13 @@ public class HasValidPinState implements AtmState {
     }
 
     @Override
-    public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
-        if (this.atmMachine.getAvailableCash().compareTo(BigDecimal.ZERO) < 0) {
+    public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) throws NegativeAmountToWithdraw {
+        if(amount.compareTo(BigDecimal.ZERO) < 0) {
+            logger.error("Negative amount to withdraw entered.");
+            throw new NegativeAmountToWithdraw();
+        }
+
+        if (this.atmMachine.getAvailableCash().compareTo(amount) < 0) {
             System.out.println("ATM does not have enough funds! Card is ejected.");
             this.atmMachine.setAtmState(this.atmMachine.getIdleState());
         } else {
