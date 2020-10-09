@@ -4,6 +4,7 @@ import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.AtmState;
 
 import java.math.BigDecimal;
+import java.util.function.Consumer;
 
 public class HasValidPinState implements AtmState {
     private AtmMachine atmMachine;
@@ -29,12 +30,12 @@ public class HasValidPinState implements AtmState {
     }
 
     @Override
-    public void withdraw(BigDecimal amount) {
-        if (this.atmMachine.getAvailableCash().subtract(amount).compareTo(BigDecimal.ZERO) < 0) {
+    public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
+        if (this.atmMachine.getAvailableCash().compareTo(BigDecimal.ZERO) < 0) {
             System.out.println("ATM does not have enough funds! Card is ejected.");
             this.atmMachine.setAtmState(this.atmMachine.getIdleState());
         } else {
-            this.atmMachine.setAvailableCash(this.atmMachine.getAvailableCash().subtract(amount));
+            subtractFromAvailableCash.accept(amount);
             System.out.println("Cash withdrawn.");
             this.atmMachine.setAtmState(this.atmMachine.getIdleState());
             if (this.atmMachine.getAvailableCash().compareTo(BigDecimal.ZERO) == 0) {

@@ -4,6 +4,7 @@ import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.AtmState;
 
 import java.math.BigDecimal;
+import java.util.function.Consumer;
 
 public class HasValidCardState implements AtmState {
     private AtmMachine atmMachine;
@@ -26,18 +27,17 @@ public class HasValidCardState implements AtmState {
     @Override
     public void insertPin(int enteredPin) {
         int accountAssociatedPIN = 12345;
-        if(enteredPin == accountAssociatedPIN) {
+        if (enteredPin == accountAssociatedPIN) {
             System.out.println("Valid PIN code entered.");
             this.atmMachine.setAtmState(this.atmMachine.getHasValidPinState());
         } else {
             System.out.println("Invalid PIN code entered, the card is ejected.");
             this.atmMachine.setAtmState(this.atmMachine.getIdleState());
         }
-
     }
 
     @Override
-    public void withdraw(BigDecimal amount) {
-        System.out.println("PIN code not provided yet.");
+    public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
+        System.out.println("PIN code not entered yet.");
     }
 }

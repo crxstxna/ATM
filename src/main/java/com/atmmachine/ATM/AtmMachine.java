@@ -42,7 +42,11 @@ public class AtmMachine {
     }
 
     public void withdraw(BigDecimal amount) {
-        this.atmState.withdraw(amount);
+        this.atmState.withdraw(amount, this::subtractFromAvailableCash);
+    }
+
+    private void subtractFromAvailableCash(BigDecimal amount) {
+        this.availableCash = this.availableCash.subtract(amount);
     }
 
     public BigDecimal getAvailableCash() {

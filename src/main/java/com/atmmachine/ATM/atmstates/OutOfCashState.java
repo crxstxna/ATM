@@ -4,6 +4,7 @@ import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.AtmState;
 
 import java.math.BigDecimal;
+import java.util.function.Consumer;
 
 public class OutOfCashState implements AtmState {
     private AtmMachine atmMachine;
@@ -29,7 +30,7 @@ public class OutOfCashState implements AtmState {
     }
 
     @Override
-    public void withdraw(BigDecimal amount) {
+    public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
         System.out.println("ATM out of cash.");
     }
 }
