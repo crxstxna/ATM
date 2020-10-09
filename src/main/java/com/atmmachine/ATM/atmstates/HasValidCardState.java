@@ -2,12 +2,16 @@ package com.atmmachine.ATM.atmstates;
 
 import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.AtmState;
+import com.atmmachine.ATM.unitTestExceptions.InvalidPinDigitNumberException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.function.Consumer;
 
 public class HasValidCardState implements AtmState {
     private AtmMachine atmMachine;
+    Logger logger = LogManager.getLogger(HasValidCardState.class.getName());
 
     public HasValidCardState(AtmMachine newAtmMachine) {
         this.atmMachine = newAtmMachine;
@@ -25,9 +29,13 @@ public class HasValidCardState implements AtmState {
     }
 
     @Override
-    public void insertPin(int enteredPin) {
-        int accountAssociatedPIN = 12345;
-        if (enteredPin == accountAssociatedPIN) {
+    public void insertPin(int enteredPin) throws InvalidPinDigitNumberException {
+        int accountAssociatedPin = 12345;
+        if (String.valueOf(enteredPin).length() != 5) {
+            this.handleWrongNoPinDigits();
+            throw new InvalidPinDigitNumberException();
+        }
+        if (enteredPin == accountAssociatedPin) {
             System.out.println("Valid PIN code entered.");
             this.atmMachine.setAtmState(this.atmMachine.getHasValidPinState());
         } else {
@@ -39,5 +47,11 @@ public class HasValidCardState implements AtmState {
     @Override
     public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
         System.out.println("PIN code not entered yet.");
+    }
+
+    private void handleWrongNoPinDigits() {
+        logger.error("Wrong number of PIN digits entered, card is ejected.");
+        System.out.println("Wrong number of PIN digits entered.");
+        this.atmMachine.setAtmState(this.atmMachine.getIdleState());
     }
 }
