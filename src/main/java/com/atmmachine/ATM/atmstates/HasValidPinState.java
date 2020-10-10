@@ -25,34 +25,50 @@ public class HasValidPinState implements AtmState {
     }
 
     @Override
-    public void ejectCard() {
-        System.out.println("The session has been cancelled, the card is ejected.");
+    public String ejectCard() {
+        String message = "The session has been cancelled, the card is ejected.";
+        System.out.println(message);
         this.atmMachine.setAtmState(this.atmMachine.getIdleState());
+        return message;
     }
 
     @Override
-    public void insertPin(int enteredPin) {
-        System.out.println("The PIN code has already been entered.");
+    public String insertPin(int enteredPin) {
+        String message = "The PIN code has already been entered.";
+        System.out.println(message);
+        return message;
     }
 
     @Override
-    public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) throws NegativeAmountToWithdraw {
+    public String withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) throws NegativeAmountToWithdraw {
+        String message;
         if(amount.compareTo(BigDecimal.ZERO) < 0) {
-            logger.error("Negative amount to withdraw entered.");
-            throw new NegativeAmountToWithdraw();
+            message = "Negative amount entered. The card is ejected.";
+            this.handleNegativeAmountEntered(message);
+            throw new NegativeAmountToWithdraw(message);
         }
 
         if (this.atmMachine.getAvailableCash().compareTo(amount) < 0) {
-            System.out.println("ATM does not have enough funds! Card is ejected.");
+            message = "ATM does not have enough funds! Card is ejected.";
+            System.out.println(message);
             this.atmMachine.setAtmState(this.atmMachine.getIdleState());
         } else {
             subtractFromAvailableCash.accept(amount);
-            System.out.println("Cash withdrawn.");
+            message = "Cash withdrawn. The card is ejected.";
+            System.out.println(message);
             this.atmMachine.setAtmState(this.atmMachine.getIdleState());
             if (this.atmMachine.getAvailableCash().compareTo(BigDecimal.ZERO) == 0) {
-                System.out.println("ATM out of cash.");
+                message = "Cash withdrawn. ATM out of cash.";
+                System.out.println(message);
                 this.atmMachine.setAtmState(this.atmMachine.getOutOfCashState());
             }
         }
+        return message;
+    }
+
+    private void handleNegativeAmountEntered(String message) {
+        this.atmMachine.setAtmState(this.atmMachine.getIdleState());
+        logger.error(message);
+        System.out.println(message);
     }
 }

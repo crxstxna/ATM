@@ -22,18 +22,24 @@ public class OutOfCashState implements AtmState {
     }
 
     @Override
-    public void ejectCard() {
-        System.out.println("ATM out of cash.");
+    public String ejectCard() {
+        String message = "ATM out of cash.";
+        System.out.println(message);
         this.atmMachine.setAtmState(this.atmMachine.getIdleState());
+        return message;
     }
 
     @Override
-    public void insertPin(int enteredPin) {
-        System.out.println("ATM out of cash.");
+    public String insertPin(int enteredPin) {
+        String message = "ATM out of cash.";
+        System.out.println(message);
+        return message;
     }
 
     @Override
-    public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
-        System.out.println("ATM out of cash.");
+    public String withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
+        String message = "ATM out of cash.";
+        System.out.println(message);
+        return message;
     }
 }

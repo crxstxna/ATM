@@ -22,17 +22,23 @@ public class IdleState implements AtmState {
     }
 
     @Override
-    public void ejectCard() {
-        System.out.println("No card inserted yet!");
+    public String ejectCard() {
+        String message = "No card inserted yet!";
+        System.out.println(message);
+        return message;
     }
 
     @Override
-    public void insertPin(int enteredPin) {
-        System.out.println("No card inserted yet!");
+    public String insertPin(int enteredPin) {
+        String message = "No card inserted yet!";
+        System.out.println(message);
+        return message;
     }
 
     @Override
-    public void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
-        System.out.println("No card inserted yet!");
+    public String withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) {
+        String message = "No card inserted yet!";
+        System.out.println(message);
+        return message;
     }
 }

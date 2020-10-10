@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public interface AtmState {
     String insertCard();
-    void ejectCard();
-    void insertPin(int enteredPin) throws InvalidPinDigitNumberException;
-    void withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) throws NegativeAmountToWithdraw;
+    String ejectCard();
+    String insertPin(int enteredPin) throws InvalidPinDigitNumberException;
+    String withdraw(BigDecimal amount, Consumer<BigDecimal> subtractFromAvailableCash) throws NegativeAmountToWithdraw;
 }

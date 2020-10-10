@@ -38,16 +38,16 @@ public class AtmMachine {
         return this.atmState.insertCard();
     }
 
-    public void ejectCard() {
-        this.atmState.ejectCard();
+    public String ejectCard() {
+        return this.atmState.ejectCard();
     }
 
-    public void insertPin(int enteredPin) throws InvalidPinDigitNumberException {
-        this.atmState.insertPin(enteredPin);
+    public String insertPin(int enteredPin) throws InvalidPinDigitNumberException {
+        return this.atmState.insertPin(enteredPin);
     }
 
-    public void withdraw(BigDecimal amount) throws NegativeAmountToWithdraw {
-        this.atmState.withdraw(amount, this::subtractFromAvailableCash);
+    public String withdraw(BigDecimal amount) throws NegativeAmountToWithdraw {
+        return this.atmState.withdraw(amount, this::subtractFromAvailableCash);
     }
 
     private void subtractFromAvailableCash(BigDecimal amount) {
