@@ -16,7 +16,7 @@ public class HasValidPinStateTest {
     private AtmMachine atmMachine;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         atmMachine = new AtmMachine();
         atmMachine.insertCard();
         atmMachine.insertPin(12345);
