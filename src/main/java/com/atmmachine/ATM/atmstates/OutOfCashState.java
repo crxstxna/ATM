@@ -14,8 +14,11 @@ public class OutOfCashState implements AtmState {
     }
 
     @Override
-    public void insertCard() {
-        System.out.println("ATM out of cash.");
+    public String insertCard() {
+        String message = "ATM out of cash, cannot insert card.";
+        System.out.println(message);
+
+        return message;
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.atmmachine.ATM.unitTests;
 import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.atmstates.HasValidPinState;
 import com.atmmachine.ATM.atmstates.IdleState;
-import com.atmmachine.ATM.unitTestExceptions.InvalidPinDigitNumberException;
+import com.atmmachine.ATM.errorhandling.exceptions.InvalidPinDigitNumberException;
 import org.junit.Before;
 import org.junit.Test;
 

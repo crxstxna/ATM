@@ -2,7 +2,7 @@ package com.atmmachine.ATM.atmstates;
 
 import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.AtmState;
-import com.atmmachine.ATM.unitTestExceptions.NegativeAmountToWithdraw;
+import com.atmmachine.ATM.errorhandling.exceptions.NegativeAmountToWithdraw;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,8 +18,10 @@ public class HasValidPinState implements AtmState {
     }
 
     @Override
-    public void insertCard() {
-        System.out.println("The card has already been inserted.");
+    public String insertCard() {
+        String message = "The card has already been inserted.";
+        System.out.println(message);
+        return message;
     }
 
     @Override

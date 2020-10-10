@@ -3,7 +3,7 @@ package com.atmmachine.ATM.unitTests;
 import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.atmstates.IdleState;
 import com.atmmachine.ATM.atmstates.OutOfCashState;
-import com.atmmachine.ATM.unitTestExceptions.NegativeAmountToWithdraw;
+import com.atmmachine.ATM.errorhandling.exceptions.NegativeAmountToWithdraw;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,6 +37,7 @@ public class HasValidPinStateTest {
     @Test
     public void atmOutOfCashTest() throws NegativeAmountToWithdraw {
         this.atmMachine.withdraw(BigDecimal.valueOf(10000));
+        this.atmMachine.insertCard();
         assertTrue(this.atmMachine.getAtmState() instanceof OutOfCashState);
     }
 

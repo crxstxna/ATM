@@ -4,12 +4,15 @@ import com.atmmachine.ATM.atmstates.HasValidCardState;
 import com.atmmachine.ATM.atmstates.HasValidPinState;
 import com.atmmachine.ATM.atmstates.IdleState;
 import com.atmmachine.ATM.atmstates.OutOfCashState;
-import com.atmmachine.ATM.unitTestExceptions.InvalidPinDigitNumberException;
-import com.atmmachine.ATM.unitTestExceptions.NegativeAmountToWithdraw;
+import com.atmmachine.ATM.errorhandling.exceptions.InvalidPinDigitNumberException;
+import com.atmmachine.ATM.errorhandling.exceptions.NegativeAmountToWithdraw;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
 public class AtmMachine {
+
     private AtmState idleState;
     private AtmState hasValidCardState;
     private AtmState hasValidPinState;
@@ -31,8 +34,8 @@ public class AtmMachine {
         this.atmState = newAtmState;
     }
 
-    public void insertCard() {
-        this.atmState.insertCard();
+    public String insertCard() {
+        return this.atmState.insertCard();
     }
 
     public void ejectCard() {

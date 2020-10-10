@@ -14,9 +14,11 @@ public class IdleState implements AtmState {
     }
 
     @Override
-    public void insertCard() {
-        System.out.println("Entered card is valid!");
+    public String insertCard() {
+        String message = "Entered card is valid!";
+        System.out.println(message);
         this.atmMachine.setAtmState(atmMachine.getHasValidCardState());
+        return message;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.atmmachine.ATM.atmstates;
 
 import com.atmmachine.ATM.AtmMachine;
 import com.atmmachine.ATM.AtmState;
-import com.atmmachine.ATM.unitTestExceptions.InvalidPinDigitNumberException;
+import com.atmmachine.ATM.errorhandling.exceptions.InvalidPinDigitNumberException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,13 +13,17 @@ public class HasValidCardState implements AtmState {
     private AtmMachine atmMachine;
     Logger logger = LogManager.getLogger(HasValidCardState.class.getName());
 
+
     public HasValidCardState(AtmMachine newAtmMachine) {
         this.atmMachine = newAtmMachine;
     }
 
     @Override
-    public void insertCard() {
-        System.out.println("The card has already been inserted.");
+    public String insertCard() {
+        String message = "The card has already been inserted.";
+        System.out.println(message);
+
+        return message;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class HasValidCardState implements AtmState {
         int accountAssociatedPin = 12345;
         if (String.valueOf(enteredPin).length() != 5) {
             this.handleWrongNoPinDigits();
-            throw new InvalidPinDigitNumberException();
+            throw new InvalidPinDigitNumberException("Invalid number of PIN digits entered.");
         }
         if (enteredPin == accountAssociatedPin) {
             System.out.println("Valid PIN code entered.");
