@@ -10,4 +10,12 @@ public class ResponseModel {
         this.message = message;
         this.httpStatus = httpStatus;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
 }

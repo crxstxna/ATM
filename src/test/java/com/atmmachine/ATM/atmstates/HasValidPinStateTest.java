@@ -1,8 +1,6 @@
-package com.atmmachine.ATM.unitTests;
+package com.atmmachine.ATM.atmstates;
 
 import com.atmmachine.ATM.AtmMachine;
-import com.atmmachine.ATM.atmstates.IdleState;
-import com.atmmachine.ATM.atmstates.OutOfCashState;
 import com.atmmachine.ATM.errorhandling.exceptions.NegativeAmountToWithdraw;
 import org.junit.Before;
 import org.junit.Test;

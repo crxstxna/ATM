@@ -29,11 +29,7 @@ public class AtmController {
     @ResponseBody
     public ResponseEntity<Object> insertPin(@RequestParam int pin) {
         String message;
-        try {
-            message = atmMachine.insertPin(pin);
-        } catch (InvalidPinDigitNumberException e) {
-            return new ResponseEntity<>(new ResponseModel(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
-        }
+        message = atmMachine.insertPin(pin);
         return new ResponseEntity<>(new ResponseModel(message, HttpStatus.OK), HttpStatus.OK);
     }
 
@@ -41,11 +37,7 @@ public class AtmController {
     @ResponseBody
     public ResponseEntity<Object> withdraw(@RequestParam BigDecimal amount) {
         String message;
-        try {
-            message = this.atmMachine.withdraw(amount);
-        } catch (NegativeAmountToWithdraw e) {
-            return new ResponseEntity<>(new ResponseModel(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
-        }
+        message = this.atmMachine.withdraw(amount);
         return new ResponseEntity<>(new ResponseModel(message, HttpStatus.OK), HttpStatus.OK);
     }
 
