@@ -1,8 +1,6 @@
 package com.atmmachine.ATM.controllers;
 
 import com.atmmachine.ATM.AtmMachine;
-import com.atmmachine.ATM.errorhandling.exceptions.InvalidPinDigitNumberException;
-import com.atmmachine.ATM.errorhandling.exceptions.NegativeAmountToWithdraw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,17 +23,17 @@ public class AtmController {
         return new ResponseEntity<>(new ResponseModel(message, HttpStatus.OK), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/insertPin", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping (value = "/insertPin/{pin}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> insertPin(@RequestParam int pin) {
+    public ResponseEntity<Object> insertPin(@PathVariable int pin) {
         String message;
         message = atmMachine.insertPin(pin);
         return new ResponseEntity<>(new ResponseModel(message, HttpStatus.OK), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/withdraw", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/withdraw/{amount}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> withdraw(@RequestParam BigDecimal amount) {
+    public ResponseEntity<Object> withdraw(@PathVariable BigDecimal amount) {
         String message;
         message = this.atmMachine.withdraw(amount);
         return new ResponseEntity<>(new ResponseModel(message, HttpStatus.OK), HttpStatus.OK);
